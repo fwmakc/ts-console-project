@@ -1,0 +1,29 @@
+{
+  "name": "ts-console-project",
+  "version": "0.0.1",
+  "description": "Template for console node.js projects based typescript, eslint, prettier",
+  "keywords": [],
+  "main": "dist/index.js",
+  "repository": "https://github.com/fwmakc/ts-console-project.git",
+  "author": "fwmakc <fwmakc@mail.ru>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "eslint \"src/**/*.{js,mjs,cjs,ts,mts,cts}\" --fix"
+  },
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.3.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+  }
+}
