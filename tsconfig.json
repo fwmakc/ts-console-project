@@ -20,6 +20,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "removeComments": true,
+    "strictNullChecks": true,
     "noEmitOnError": true
   },
   "include": [
