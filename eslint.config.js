@@ -9,7 +9,7 @@ import globals from 'globals';
 export default [
   // Базовые правила JavaScript
   js.configs.recommended,
-  
+
   // Основные TypeScript файлы
   {
     files: ['src/**/*.ts'],
@@ -36,10 +36,10 @@ export default [
     rules: {
       // Базовые правила TypeScript
       ...ts.configs.recommended.rules,
-      
+
       // Prettier
       'prettier/prettier': 'error',
-      
+
       // Сортировка импортов через ESLint
       'import/order': [
         'error',
@@ -62,23 +62,31 @@ export default [
 
       // Node.js специфичные правила
       'node/no-missing-import': 'off',
-      
-      // Кастомные правила
+
+      // Строгие типы
+      '@typescript-eslint/prefer-function-type': 'error',
+      '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/no-unnecessary-type-assertion': 'error',
+
+      // Качество кода
+      '@typescript-eslint/explicit-function-return-type': 'error',
+      '@typescript-eslint/explicit-module-boundary-types': 'error',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
         { 
           argsIgnorePattern: '^_',
-          varsIgnorePattern: '^_'
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+          args: 'all',
         }
       ],
-      '@typescript-eslint/interface-name-prefix': 'off',
-      '@typescript-eslint/explicit-function-return-type': 'off',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/no-empty-function': 'off',
-      '@typescript-eslint/no-explicit-any': 'off'
     },
   },
-  
+
   // Тестовые файлы - добавляем глобальные переменные Jest
   {
     files: ['**/*.test.ts', '**/*.spec.ts'],
@@ -93,7 +101,7 @@ export default [
       '@typescript-eslint/explicit-function-return-type': 'off',
     },
   },
-  
+
   // Игнорируемые файлы
   {
     ignores: [
