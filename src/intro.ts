@@ -1,1 +1,1 @@
-export const intro = (string: string) => string.toString();
+export const intro = (string: string): string => string.toString();

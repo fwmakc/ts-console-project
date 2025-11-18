@@ -91,12 +91,29 @@ export default [
   {
     files: ['**/*.test.ts', '**/*.spec.ts'],
     languageOptions: {
+      parser: tsParser,
+      ecmaVersion: 2022,
+      sourceType: 'module',
       globals: {
-        ...globals.jest, // Добавляем глобальные переменные Jest
-        ...globals.node, // И Node.js глобалы для тестов
+        ...globals.jest,
+        ...globals.node,
+        ...globals.browser,
+        ...globals.es2022,
       },
     },
+    plugins: {
+      '@typescript-eslint': ts,
+      prettier: prettierPlugin,
+      import: importPlugin,
+      node: nodePlugin,
+    },
     rules: {
+      // Базовые правила TypeScript
+      ...ts.configs.recommended.rules,
+
+      // Prettier
+      'prettier/prettier': 'error',
+
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
     },

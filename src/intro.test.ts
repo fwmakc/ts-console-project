@@ -20,7 +20,7 @@ describe('Example test', () => {
     },
     {
       original: 123,
-      reference: '123'
+      reference: '123',
     },
   ];
 
