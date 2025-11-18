@@ -1,14 +1,34 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "rootDir": "./src",
+    "lib": ["ES2022", "DOM"],
+    "types": ["jest"],
+
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+
     "outDir": "./dist",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
+    "rootDir": "./src",
+    
     "strict": true,
     "declaration": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "removeComments": true,
+    "noEmitOnError": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
 }
