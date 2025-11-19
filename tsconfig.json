@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["ES2022"],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["node", "jest"],
 
     "target": "ES2022",
@@ -21,14 +21,15 @@
     "noFallthroughCasesInSwitch": true,
     "removeComments": true,
     "strictNullChecks": true,
+    "isolatedModules": true,
     "noEmitOnError": true
   },
   "include": [
     "src/**/*"
   ],
   "exclude": [
-    "node_modules",
     "dist",
+    "node_modules",
     "**/*.test.ts",
     "**/*.spec.ts"
   ]
