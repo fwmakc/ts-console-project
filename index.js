@@ -19,7 +19,7 @@ const rl = readline.createInterface({
 });
 
 function copyRecursive(src, dest) {
-  const entries = fs.readdirSync(src);
+  const entries = fs.readdirSync(src, { withFileTypes: true });
 
   for (const entry of entries) {
     const srcPath = path.join(src, entry);
