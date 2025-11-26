@@ -1,6 +1,6 @@
 {
   "name": "create-ts-console-project",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "productName": "Typescript console project template creator",
   "description": "Template for console node.js projects based typescript, eslint, prettier, jest, minify",
   "keywords": [

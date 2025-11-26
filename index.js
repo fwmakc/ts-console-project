@@ -153,18 +153,23 @@ async function main() {
     defaults.description = await question('Description: ') || defaults.description;
     defaults.repository = await question('Repository url: ') || defaults.repository;
 
-    const author = await question('Author: ') || '';
-    const email = await question('Email: ') || '';
+    let author = await question('Author: ') || '';
+    author = author.trim();
 
-    const authors = [];
     if (author) {
-      authors.push(author);
-    }
-    if (email && email !== author) {
-      authors.push(`<${email}>`);
-    }
+      let email = await question('Email: ') || '';
+      email = email.trim();
 
-    defaults.author = authors.join(' ');
+      const authors = [];
+      if (author) {
+        authors.push(author);
+      }
+      if (email && email !== author) {
+        authors.push(`<${email}>`);
+      }
+
+      defaults.author = authors.join(' ');
+    }
   }
 
   const targetDir = path.resolve(defaults.projectName);
