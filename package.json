@@ -10,8 +10,9 @@
   "author": "fwmakc <fwmakc@mail.ru>",
   "license": "MIT",
   "scripts": {
-    "build": "npm run lint && npm run test && npm run compile",
+    "build": "npm run lint && npm run test && npm run compile && npm run minify",
     "compile": "tsc",
+    "minify": "esbuild src/index.ts --bundle --platform=node --target=node18 --outfile=dist/index.min.js --minify",
     "dev": "ts-node src/index.ts",
     "start": "node dist/index.js",
     "lint": "eslint . --fix",
@@ -23,6 +24,7 @@
     "@types/node": "^24.10.1",
     "@typescript-eslint/eslint-plugin": "^8.47.0",
     "@typescript-eslint/parser": "^8.47.0",
+    "esbuild": "^0.27.0",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
@@ -34,6 +36,5 @@
     "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
-  },
-  "dependencies": {}
+  }
 }

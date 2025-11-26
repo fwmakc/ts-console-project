@@ -13,7 +13,7 @@ export default [
   // Основные TypeScript файлы
   {
     files: ['src/**/*.ts'],
-    ignores: ['**/*.test.ts', '**/*.spec.ts'],
+    ignores: ['**/*.case.ts', '**/*.test.ts', '**/*.spec.ts'],
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 2022,
@@ -89,7 +89,7 @@ export default [
 
   // Тестовые файлы - добавляем глобальные переменные Jest
   {
-    files: ['**/*.test.ts', '**/*.spec.ts'],
+    files: ['**/*.case.ts', '**/*.test.ts', '**/*.spec.ts'],
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 2022,
