@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
+const { execSync } = require('child_process');
 
 // Задаем значения по-умолчанию
 const defaults = {
@@ -17,6 +18,10 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
+
+function copyFile(filename, src, dest) {
+  fs.copyFileSync(path.join(src, filename), path.join(dest, filename));
+}
 
 function copyRecursive(src, dest) {
   const entries = fs.readdirSync(src);
@@ -138,11 +143,11 @@ async function main() {
 
     // Копируем файлы из template
     copyRecursive(path.join(__dirname, 'template'), targetDir);
-
+    
     // Копируем остальные файлы
-    fs.copyFileSync(path.join(__dirname, '.gitignore'), path.join(targetDir, '.gitignore'));
-    fs.copyFileSync(path.join(__dirname, 'LICENSE'), path.join(targetDir, 'LICENSE'));
-    fs.copyFileSync(path.join(__dirname, 'README.md'), path.join(targetDir, 'README.md'));
+    copyFile('.gitignore', __dirname, targetDir);
+    copyFile('LICENSE', __dirname, targetDir);
+    copyFile('README.md', __dirname, targetDir);
 
     // Обновляем package.json
     updatePackageJson(targetDir, {
