@@ -11,7 +11,6 @@ const defaults = {
   productName: 'TS Console Project',
   description: 'TypeScript console application',
   author: '',
-  targetFolder: 'ts-console-project'
 }
 
 const rl = readline.createInterface({
@@ -122,28 +121,35 @@ function updatePackageJson(targetDir, fields) {
 }
 
 async function main() {
-  console.log('🚀 Creating TypeScript Console Project...\n');
+  console.log('🚀 Creating TypeScript Console Project');
+  console.log('(will be installed in project name folder)\n');
 
   // Парсим аргументы командной строки
   const args = process.argv.slice(2);
   const projectNameFromArgs = String(args?.[0] || '').trim();
-  const targetFolderFromArgs = String(args?.[1] || '').trim();
-  const autoInstall = projectNameFromArgs;
 
-  if (autoInstall) {
+  if (projectNameFromArgs) {
     defaults.projectName = projectNameFromArgs;
-    defaults.targetFolder = targetFolderFromArgs || projectNameFromArgs;
-  }
-
-  if (!autoInstall) {
+  } else {
     defaults.projectName = await question(`Project name (${defaults.projectName}): `) || defaults.projectName;
     defaults.productName = await question(`Product name (${defaults.productName}): `) || defaults.productName;
     defaults.description = await question('Description: ') || defaults.description;
-    defaults.author = await question('Author: ') || defaults.author;
-    defaults.targetFolder = defaults.projectName;
+
+    const author = await question('Author: ') || '';
+    const email = await question('Email: ') || '';
+
+    const authors = [];
+    if (author) {
+      authors.push(author);
+    }
+    if (email && email !== author) {
+      authors.push(`<${email}>`);
+    }
+
+    defaults.author = authors.join(' ');
   }
 
-  const targetDir = defaults.targetFolder === '.' ? __dirname : path.resolve(defaults.targetFolder);
+  const targetDir = path.resolve(defaults.projectName);
 
   // Проверяем, существует ли директория
   if (!isDirectoryEmpty(targetDir)) {
@@ -181,13 +187,13 @@ async function main() {
 
     // Переходим к Next steps
     console.log('\nNext steps:');
-    if (defaults.targetFolder !== '.') {
-      console.log(`📁 cd ${defaults.targetFolder}`);
-    }
+    console.log(`📁 cd ${defaults.projectName}`);
     console.log('📦 npm install');
     console.log('⭐ npm run dev');
 
-    if (!autoInstall) {
+    if (projectNameFromArgs) {
+      await executeNextSteps(targetDir);
+    } else {
       // Запрашиваем выполнение Next steps
       const executeSteps = await question('\nInstall dependencies automatically? (y/N): ');
 
