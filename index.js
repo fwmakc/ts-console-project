@@ -138,6 +138,9 @@ async function main() {
 
     // Копируем файлы из template
     copyRecursive(path.join(__dirname, 'template'), targetDir);
+    copyRecursive(path.join(__dirname, '.gitignore'), targetDir);
+    copyRecursive(path.join(__dirname, 'LICENSE'), targetDir);
+    copyRecursive(path.join(__dirname, 'README.md'), targetDir);
 
     // Обновляем package.json
     updatePackageJson(targetDir, {
