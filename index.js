@@ -78,6 +78,26 @@ async function executeNextSteps(targetDir) {
   }
 }
 
+function isDirectoryEmpty(dirPath) {
+  try {
+    if (!fs.existsSync(dirPath)) {
+      return true;
+    }
+
+    const stats = fs.statSync(dirPath);
+    if (!stats.isDirectory()) {
+      console.error(`❌ Path is not a directory: ${dirPath}`);
+      return false;
+    }
+
+    const files = fs.readdirSync(dirPath);
+    return files.length === 0;
+  } catch (error) {
+    console.error(`❌ Error checking directory: ${error.message}`);
+    return false;
+  }
+}
+
 function question(prompt) {
   return new Promise((resolve) => {
     rl.question(prompt, resolve);
@@ -120,14 +140,14 @@ async function main() {
     defaults.productName = await question(`Product name (${defaults.productName}): `) || defaults.productName;
     defaults.description = await question('Description: ') || defaults.description;
     defaults.author = await question('Author: ') || defaults.author;
-    defaults.targetFolder = await question(`Folder name (${defaults.projectName}) or . for current: `) || defaults.projectName;
+    defaults.targetFolder = defaults.projectName;
   }
 
-  const targetDir = path.resolve(defaults.targetFolder);
+  const targetDir = defaults.targetFolder === '.' ? __dirname : path.resolve(defaults.targetFolder);
 
   // Проверяем, существует ли директория
-  if (fs.existsSync(targetDir)) {
-    const overwrite = await question(`Directory "${defaults.targetFolder}" already exists. Overwrite? (y/N): `);
+  if (!isDirectoryEmpty(targetDir)) {
+    const overwrite = await question(`Directory "${targetDir}" already exists. Overwrite? (y/N): `);
     if (overwrite.toLowerCase() !== 'y') {
       console.log('❌ Operation cancelled');
       rl.close();
