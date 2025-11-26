@@ -8,8 +8,10 @@ const { execSync } = require('child_process');
 // Задаем значения по-умолчанию
 const defaults = {
   projectName: 'ts-console-project',
+  version: '0.1.0',
   productName: 'TS Console Project',
   description: 'TypeScript console application',
+  repository: '',
   author: '',
 }
 
@@ -115,8 +117,10 @@ function updatePackageJson(targetDir, fields) {
     // Обновляем только указанные поля
     packageJson.name = fields.name;
 
+    if (fields.version) packageJson.version = fields.version;
     if (fields.productName) packageJson.productName = fields.productName;
     if (fields.description) packageJson.description = fields.description;
+    if (fields.repository) packageJson.version = fields.repository;
     if (fields.author) packageJson.author = fields.author;
 
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
@@ -135,8 +139,10 @@ async function main() {
     defaults.projectName = projectNameFromArgs;
   } else {
     defaults.projectName = await question(`Project name (${defaults.projectName}): `) || defaults.projectName;
+    defaults.version = await question(`Version (${defaults.version}): `) || defaults.version;
     defaults.productName = await question(`Product name (${defaults.productName}): `) || defaults.productName;
     defaults.description = await question('Description: ') || defaults.description;
+    defaults.repository = await question('Repository: ') || defaults.repository;
 
     const author = await question('Author: ') || '';
     const email = await question('Email: ') || '';
@@ -181,8 +187,10 @@ async function main() {
     // Обновляем package.json
     updatePackageJson(targetDir, {
       name: defaults.projectName,
+      version: defaults.version,
       productName: defaults.productName,
       description: defaults.description,
+      repository: defaults.repository,
       author: defaults.author
     });
 
