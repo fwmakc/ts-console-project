@@ -19,7 +19,7 @@ const rl = readline.createInterface({
 });
 
 function copyRecursive(src, dest) {
-  const entries = fs.readdirSync(src, { withFileTypes: true });
+  const entries = fs.readdirSync(src);
 
   for (const entry of entries) {
     const srcPath = path.join(src, entry);
@@ -115,7 +115,7 @@ async function main() {
     defaults.productName = await question(`Product name (${defaults.productName}): `) || defaults.productName;
     defaults.description = await question('Description: ') || defaults.description;
     defaults.author = await question('Author: ') || defaults.author;
-    defaults.targetFolder = await question(`Folder name (${defaults.targetFolder}) or . for current: `) || defaults.targetFolder;
+    defaults.targetFolder = await question(`Folder name (${defaults.projectName}) or . for current: `) || defaults.projectName;
   }
 
   const targetDir = path.resolve(defaults.targetFolder);
@@ -138,9 +138,11 @@ async function main() {
 
     // Копируем файлы из template
     copyRecursive(path.join(__dirname, 'template'), targetDir);
-    copyRecursive(path.join(__dirname, '.gitignore'), targetDir);
-    copyRecursive(path.join(__dirname, 'LICENSE'), targetDir);
-    copyRecursive(path.join(__dirname, 'README.md'), targetDir);
+
+    // Копируем остальные файлы
+    fs.copyFileSync(path.join(__dirname, '.gitignore'), path.join(targetDir, '.gitignore'));
+    fs.copyFileSync(path.join(__dirname, 'LICENSE'), path.join(targetDir, 'LICENSE'));
+    fs.copyFileSync(path.join(__dirname, 'README.md'), path.join(targetDir, 'README.md'));
 
     // Обновляем package.json
     updatePackageJson(targetDir, {
