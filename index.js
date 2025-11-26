@@ -120,7 +120,7 @@ function updatePackageJson(targetDir, fields) {
     if (fields.version) packageJson.version = fields.version;
     if (fields.productName) packageJson.productName = fields.productName;
     if (fields.description) packageJson.description = fields.description;
-    if (fields.repository) packageJson.version = fields.repository;
+    if (fields.repository) packageJson.repository = fields.repository;
     if (fields.author) packageJson.author = fields.author;
 
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
@@ -142,7 +142,7 @@ async function main() {
     defaults.version = await question(`Version (${defaults.version}): `) || defaults.version;
     defaults.productName = await question(`Product name (${defaults.productName}): `) || defaults.productName;
     defaults.description = await question('Description: ') || defaults.description;
-    defaults.repository = await question('Repository: ') || defaults.repository;
+    defaults.repository = await question('Repository url: ') || defaults.repository;
 
     const author = await question('Author: ') || '';
     const email = await question('Email: ') || '';
