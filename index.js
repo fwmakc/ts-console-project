@@ -51,7 +51,7 @@ function detectPackageManager() {
   }
 }
 
-async function executeNextSteps(targetDir) {
+async function executeNextSteps(targetDir, silent = false) {
   console.log('\n🔧 Executing next steps...\n');
 
   try {
@@ -61,11 +61,14 @@ async function executeNextSteps(targetDir) {
 
     // 2. Автоматическое определение или выбор менеджера пакетов
     const detectedManager = detectPackageManager();
-    const packageManagerAnswer = await question(`Package manager (npm/yarn, default: ${detectedManager}): `) || detectedManager;
-    const validPackageManagers = ['npm', 'yarn'];
-    const selectedPackageManager = validPackageManagers.includes(packageManagerAnswer.toLowerCase()) 
-      ? packageManagerAnswer.toLowerCase() 
-      : detectedManager;
+    let selectedPackageManager = detectedManager;
+    if (!silent) {
+      const packageManagerAnswer = await question(`Package manager (npm/yarn, default: ${detectedManager}): `) || detectedManager;
+      const validPackageManagers = ['npm', 'yarn'];
+      selectedPackageManager = validPackageManagers.includes(packageManagerAnswer.toLowerCase()) 
+        ? packageManagerAnswer.toLowerCase() 
+        : detectedManager;
+    }
     console.log(`📦 Using package manager: ${selectedPackageManager}`);
 
     // 3. Устанавливаем зависимости
@@ -192,7 +195,7 @@ async function main() {
     console.log('⭐ npm run dev');
 
     if (projectNameFromArgs) {
-      await executeNextSteps(targetDir);
+      await executeNextSteps(targetDir, true);
     } else {
       // Запрашиваем выполнение Next steps
       const executeSteps = await question('\nInstall dependencies automatically? (y/N): ');
