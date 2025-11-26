@@ -1,40 +1,30 @@
 {
-  "name": "ts-console-project",
-  "productName": "TS Console Project",
-  "version": "0.2.0",
-  "description": "Template for console node.js projects based typescript, eslint, prettier, jest",
-  "keywords": [],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "name": "create-ts-console-project",
+  "productName": "Typescript console project template creator",
+  "version": "0.3.0",
+  "description": "Template for console node.js projects based typescript, eslint, prettier, jest, minify",
+  "keywords": [
+    "typescript",
+    "console",
+    "create",
+    "template",
+    "easy",
+    "lint",
+    "test",
+    "testing",
+    "eslint",
+    "prettier",
+    "jest"
+  ],
   "repository": "https://github.com/fwmakc/ts-console-project.git",
   "author": "fwmakc <fwmakc@mail.ru>",
   "license": "MIT",
-  "scripts": {
-    "build": "npm run lint && npm run test && npm run compile && npm run minify",
-    "compile": "tsc",
-    "minify": "esbuild src/index.ts --bundle --platform=node --target=node18 --outfile=dist/index.min.js --minify",
-    "dev": "ts-node src/index.ts",
-    "start": "node dist/index.js",
-    "lint": "eslint . --fix",
-    "test": "jest --config ./jest.config.js"
+  "main": "index.js",
+  "bin": {
+    "create-ts-console-project": "./index.js"
   },
-  "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@types/jest": "^30.0.0",
-    "@types/node": "^24.10.1",
-    "@typescript-eslint/eslint-plugin": "^8.47.0",
-    "@typescript-eslint/parser": "^8.47.0",
-    "esbuild": "^0.27.0",
-    "eslint": "^9.39.1",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^5.5.4",
-    "globals": "^16.5.0",
-    "jest": "^30.2.0",
-    "prettier": "^3.6.2",
-    "ts-jest": "^29.4.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
-  }
+  "files": [
+    "template",
+    "index.js"
+  ]
 }

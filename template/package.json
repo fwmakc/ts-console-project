@@ -1,0 +1,53 @@
+{
+  "name": "ts-console-project",
+  "productName": "TS Console Project",
+  "version": "0.1.0",
+  "description": "TypeScript console application",
+  "keywords": [
+    "typescript",
+    "console",
+    "create",
+    "template",
+    "easy",
+    "lint",
+    "test",
+    "testing",
+    "eslint",
+    "prettier",
+    "jest"
+  ],
+  "repository": "",
+  "author": "",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "npm run lint && npm run test && npm run compile && npm run minify",
+    "compile": "tsc",
+    "minify": "esbuild src/index.ts --bundle --platform=node --target=node18 --outfile=dist/index.min.js --minify",
+    "dev": "ts-node src/index.ts",
+    "start": "node dist/index.js",
+    "lint": "eslint . --fix",
+    "test": "jest --config ./jest.config.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.47.0",
+    "@typescript-eslint/parser": "^8.47.0",
+    "esbuild": "^0.27.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.5.0",
+    "jest": "^30.2.0",
+    "prettier": "^3.6.2",
+    "ts-jest": "^29.4.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {}
+}
