@@ -139,7 +139,16 @@ async function main() {
     defaults.projectName = projectNameFromArgs;
   } else {
     defaults.projectName = await question(`Project name (${defaults.projectName}): `) || defaults.projectName;
-    defaults.version = await question(`Version (${defaults.version}): `) || defaults.version;
+
+    const version = await question(`Version (${defaults.version}): `) || defaults.version;
+    const versionParts = version.split('.');
+
+    for (let i = versionParts.length; i < 3; i++) {
+      versionParts.push(0);
+    }
+
+    defaults.version = versionParts.join('.');
+
     defaults.productName = await question(`Product name (${defaults.productName}): `) || defaults.productName;
     defaults.description = await question('Description: ') || defaults.description;
     defaults.repository = await question('Repository url: ') || defaults.repository;
@@ -186,12 +195,12 @@ async function main() {
 
     // Обновляем package.json
     updatePackageJson(targetDir, {
-      name: defaults.projectName,
-      version: defaults.version,
-      productName: defaults.productName,
-      description: defaults.description,
-      repository: defaults.repository,
-      author: defaults.author
+      name: defaults.projectName.trim(),
+      version: defaults.version.trim(),
+      productName: defaults.productName.trim(),
+      description: defaults.description.trim(),
+      repository: defaults.repository.trim(),
+      author: defaults.author.trim()
     });
 
     console.log('\n✅ Project created successfully!');
