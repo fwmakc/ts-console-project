@@ -129,7 +129,7 @@ async function main() {
   const projectNameFromArgs = String(args?.[0] || '').trim();
   const targetFolderFromArgs = String(args?.[1] || '').trim();
   const autoInstall = projectNameFromArgs;
-  
+
   if (autoInstall) {
     defaults.projectName = projectNameFromArgs;
     defaults.targetFolder = targetFolderFromArgs || projectNameFromArgs;
@@ -163,7 +163,7 @@ async function main() {
 
     // Копируем файлы из template
     copyRecursive(path.join(__dirname, 'template'), targetDir);
-    
+
     // Копируем остальные файлы
     copyFile('.gitignore', __dirname, targetDir);
     copyFile('LICENSE', __dirname, targetDir);
