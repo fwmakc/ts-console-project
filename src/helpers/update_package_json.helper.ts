@@ -5,10 +5,7 @@ import type { IPackage } from '../interfaces/package.interface';
 
 import { error } from './error.helper';
 
-export function updatePackageJson(
-  targetDir: string,
-  fields: IPackage,
-): void {
+export function updatePackageJson(targetDir: string, fields: IPackage): void {
   const packageJsonPath = path.join(targetDir, 'package.json');
 
   if (!existsSync(packageJsonPath)) {
