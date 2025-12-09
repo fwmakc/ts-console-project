@@ -1,12 +1,12 @@
 import path from 'path';
 
+import { copyProject } from './helpers/copy_project.helper';
 import { error } from './helpers/error.helper';
+import { installDependencies } from './helpers/install_dependencies.helper';
+import { makeTargetFolder } from './helpers/make_target_folder.helper';
 import { print } from './helpers/print.helper';
-import { updatePackageJson } from './helpers/update_package_json.helper';
-import { copyProject } from './services/copy_project.service';
-import { installDependencies } from './services/install_dependencies.service';
-import { makeTargetFolder } from './services/make_target_folder.service';
-import { preparePackageValues } from './services/prepare_package_values.service';
+import { updatePackage } from './package/update.package';
+import { valuesPackage } from './package/values.package';
 
 async function main(): Promise<void> {
   print([
@@ -22,10 +22,7 @@ async function main(): Promise<void> {
   ]);
 
   try {
-    // Парсим аргументы командной строки
-    const args = process.argv.slice(2);
-
-    const packageValues = await preparePackageValues(args);
+    const packageValues = await valuesPackage();
 
     const projectFolder = path.resolve(packageValues.name);
     const sourceFolder = path.resolve(__dirname, '..');
@@ -37,7 +34,7 @@ async function main(): Promise<void> {
     await copyProject(sourceFolder, projectFolder);
 
     // Обновляем package.json
-    updatePackageJson(projectFolder, packageValues);
+    updatePackage(projectFolder, packageValues);
 
     print(['✅ Project created successfully!']);
 
