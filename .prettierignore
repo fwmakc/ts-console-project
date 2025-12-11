@@ -1,7 +1,5 @@
-node_modules
 dist
-build
-coverage
+node_modules
 *.md
 *.json
 *.min.js

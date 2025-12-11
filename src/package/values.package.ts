@@ -16,15 +16,12 @@ export async function valuesPackage(): Promise<IPackage> {
   } = defaults;
 
   productName = (
-    await question('Product name (required)', productName, true)
+    await question('Title / product name (required)', productName, true)
   ).trim();
 
-  name = productName
-    .split(' ')
-    .map(i => i.toLowerCase())
-    .join('-');
-
-  name = (await question('Project (required)', name, true)).trim();
+  name = productName.toLowerCase().replace(/[\W_]+/giu, '-');
+  name = (await question('Project / name (required)', name, true)).trim();
+  name = name.replaceAll(' ', '').replace(/[^\w._-]+/giu, '-');
 
   description = (
     await question('Description (required)', description, true)
@@ -40,12 +37,17 @@ export async function valuesPackage(): Promise<IPackage> {
 
   author = {};
 
-  author.name = (await question('Author (required)', '', true)).trim();
+  author.name = (
+    await question('Author / vendor / git (required)', '', true)
+  ).trim();
   author.email = (await question('Email (required)', '', true)).trim();
 
   repository = {};
 
-  const defaultInputUrl = `https://github.com/${author.name}/${name}.git`;
+  const repoAuthor = author.name
+    .replaceAll(' ', '')
+    .replace(/[^\w._-]+/giu, '-');
+  const defaultInputUrl = `https://github.com/${repoAuthor}/${name}.git`;
   const url = (await question('Repository url', defaultInputUrl)).trim();
 
   if (url) {
