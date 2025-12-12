@@ -14,13 +14,35 @@ export async function updateProject(
   await makeTargetFolder(backupFolder);
 
   // Делаем бэкап
-  copyFile('.gitignore', targetFolder, backupFolder);
-  copyFile('.prettierignore', targetFolder, backupFolder);
-  copyFile('eslint.config.js', targetFolder, backupFolder);
-  copyFile('jest.config.js', targetFolder, backupFolder);
-  copyFile('package.json', targetFolder, backupFolder);
-  copyFile('prettier.config.js', targetFolder, backupFolder);
-  copyFile('tsconfig.json', targetFolder, backupFolder);
+
+  try {
+    copyFile('*eslint*', targetFolder, backupFolder);
+    // eslint-disable-next-line no-empty
+  } catch (_err) {}
+  try {
+    copyFile('*jest*', targetFolder, backupFolder);
+    // eslint-disable-next-line no-empty
+  } catch (_err) {}
+  try {
+    copyFile('*prettier*', targetFolder, backupFolder);
+    // eslint-disable-next-line no-empty
+  } catch (_err) {}
+  try {
+    copyFile('*tsconfig*', targetFolder, backupFolder);
+    // eslint-disable-next-line no-empty
+  } catch (_err) {}
+  try {
+    copyFile('*.lock', targetFolder, backupFolder);
+    // eslint-disable-next-line no-empty
+  } catch (_err) {}
+  try {
+    copyFile('.gitignore', targetFolder, backupFolder);
+    // eslint-disable-next-line no-empty
+  } catch (_err) {}
+  try {
+    copyFile('package.json', targetFolder, backupFolder);
+    // eslint-disable-next-line no-empty
+  } catch (_err) {}
 
   // Копируем файлы из template
   copyFile('.prettierignore', templateFolder, targetFolder);
