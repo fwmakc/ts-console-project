@@ -14,29 +14,28 @@ export async function updateProject(
   await makeTargetFolder(backupFolder);
 
   // Делаем бэкап
-
-  try {
-    copyFile('*eslint*', targetFolder, backupFolder);
-    // eslint-disable-next-line no-empty
-  } catch (_err) {}
-  try {
-    copyFile('*jest*', targetFolder, backupFolder);
-    // eslint-disable-next-line no-empty
-  } catch (_err) {}
-  try {
-    copyFile('*prettier*', targetFolder, backupFolder);
-    // eslint-disable-next-line no-empty
-  } catch (_err) {}
-  try {
-    copyFile('*tsconfig*', targetFolder, backupFolder);
-    // eslint-disable-next-line no-empty
-  } catch (_err) {}
-  try {
-    copyFile('*.lock', targetFolder, backupFolder);
-    // eslint-disable-next-line no-empty
-  } catch (_err) {}
   try {
     copyFile('.gitignore', targetFolder, backupFolder);
+    // eslint-disable-next-line no-empty
+  } catch (_err) {}
+  try {
+    copyFile('.prettierignore', targetFolder, backupFolder);
+    // eslint-disable-next-line no-empty
+  } catch (_err) {}
+  try {
+    copyFile('eslint.config.js', targetFolder, backupFolder);
+    // eslint-disable-next-line no-empty
+  } catch (_err) {}
+  try {
+    copyFile('jest.config.js', targetFolder, backupFolder);
+    // eslint-disable-next-line no-empty
+  } catch (_err) {}
+  try {
+    copyFile('prettier.config.js', targetFolder, backupFolder);
+    // eslint-disable-next-line no-empty
+  } catch (_err) {}
+  try {
+    copyFile('tsconfig.json', targetFolder, backupFolder);
     // eslint-disable-next-line no-empty
   } catch (_err) {}
   try {
