@@ -3,7 +3,7 @@ import type { IPackage } from '../interfaces/package.interface';
 import { list } from '../prompts/list.prompt';
 import { question } from '../prompts/question.prompt';
 
-export async function valuesPackage(): Promise<IPackage> {
+export async function valuesPackage(packageJson?: IPackage): Promise<IPackage> {
   let {
     name,
     productName,
@@ -13,13 +13,13 @@ export async function valuesPackage(): Promise<IPackage> {
     repository,
     bugs,
     homepage,
-  } = defaults;
+  } = packageJson || defaults;
 
   productName = (
     await question('Title / product name (required)', productName, true)
   ).trim();
 
-  name = productName.toLowerCase().replace(/[\W_]+/giu, '-');
+  name = name || productName.toLowerCase().replace(/[\W_]+/giu, '-');
   name = (await question('Project / name (required)', name, true)).trim();
   name = name.replaceAll(' ', '').replace(/[^\w._-]+/giu, '-');
 
@@ -35,32 +35,36 @@ export async function valuesPackage(): Promise<IPackage> {
 
   version = userInputVersion.join('.');
 
-  author = {};
+  author = typeof author === 'object' ? author : {};
 
   author.name = (
-    await question('Author / vendor / git (required)', '', true)
+    await question('Author / vendor / git (required)', author.name || '', true)
   ).trim();
-  author.email = (await question('Email (required)', '', true)).trim();
+  author.email = (
+    await question('Email (required)', author.email || '', true)
+  ).trim();
 
-  repository = {};
+  repository = typeof repository === 'object' ? repository : {};
 
   const repoAuthor = author.name
     .replaceAll(' ', '')
     .replace(/[^\w._-]+/giu, '-');
   const defaultInputUrl = `https://github.com/${repoAuthor}/${name}.git`;
-  const url = (await question('Repository url', defaultInputUrl)).trim();
+  const url = (
+    await question('Repository url', repository.url || defaultInputUrl)
+  ).trim();
 
   if (url) {
     repository.type = 'git';
     repository.url = `git+${url}`;
 
-    bugs = {};
+    bugs = typeof bugs === 'object' ? bugs : {};
     if (author.email) {
-      bugs.email = author.email;
+      bugs.email = bugs.email || author.email;
     }
-    bugs.url = `${url}/issues`;
+    bugs.url = bugs.url || `${url}/issues`;
 
-    homepage = `${url}#readme`;
+    homepage = homepage || `${url}#readme`;
   }
 
   const packageValues: IPackage = {

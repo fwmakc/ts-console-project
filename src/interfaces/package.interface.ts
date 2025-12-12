@@ -2,6 +2,10 @@ import type { IPackageAuthor } from './package_author.interface';
 import type { IPackageBugs } from './package_bugs.interface';
 import type { IPackageRepository } from './package_repository.interface';
 
+interface ILibrariesParams {
+  [key: string]: string;
+}
+
 export interface IPackage {
   name: string;
   productName: string;
@@ -11,4 +15,8 @@ export interface IPackage {
   repository: IPackageRepository | string;
   bugs?: IPackageBugs | string;
   homepage: string;
+
+  scripts?: ILibrariesParams;
+  devDependencies?: ILibrariesParams;
+  dependencies?: ILibrariesParams;
 }
