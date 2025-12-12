@@ -8,15 +8,19 @@ interface ILibrariesParams {
 
 export interface IPackage {
   name: string;
+  version: string;
   productName: string;
   description: string;
-  version: string;
+  license: string;
+  keywords: string[];
   author: IPackageAuthor | string;
   repository: IPackageRepository | string;
-  bugs?: IPackageBugs | string;
+  bugs: IPackageBugs | string;
   homepage: string;
+  main: string;
+  types: string;
 
-  scripts?: ILibrariesParams;
-  devDependencies?: ILibrariesParams;
-  dependencies?: ILibrariesParams;
+  scripts: ILibrariesParams;
+  devDependencies: ILibrariesParams;
+  dependencies: ILibrariesParams;
 }
