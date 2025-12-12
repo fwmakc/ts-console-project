@@ -47,6 +47,7 @@ export async function updateProject(
   copyFile('.prettierignore', templateFolder, targetFolder);
   copyFile('eslint.config.js', templateFolder, targetFolder);
   copyFile('jest.config.js', templateFolder, targetFolder);
+  copyFile('package.json', templateFolder, targetFolder);
   copyFile('prettier.config.js', templateFolder, targetFolder);
   copyFile('tsconfig.json', templateFolder, targetFolder);
 

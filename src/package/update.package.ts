@@ -25,18 +25,18 @@ export function updatePackage(targetDir: string, fields: IPackage): void {
   if (fields.homepage) packageJson.homepage = fields.homepage;
 
   if (fields.scripts)
-    packageJson.scripts = { ...packageJson.scripts, ...fields.scripts };
+    packageJson.scripts = { ...fields.scripts, ...packageJson.scripts };
 
   if (fields.devDependencies)
     packageJson.devDependencies = {
-      ...packageJson.devDependencies,
       ...fields.devDependencies,
+      ...packageJson.devDependencies,
     };
 
   if (fields.dependencies)
     packageJson.dependencies = {
-      ...packageJson.dependencies,
       ...fields.dependencies,
+      ...packageJson.dependencies,
     };
 
   try {
