@@ -49,14 +49,14 @@ export async function valuesPackage(packageJson?: IPackage): Promise<IPackage> {
   const repoAuthor = author.name
     .replaceAll(' ', '')
     .replace(/[^\w._-]+/giu, '-');
-  const defaultInputUrl = `https://github.com/${repoAuthor}/${name}.git`;
+  const defaultInputUrl = `git+https://github.com/${repoAuthor}/${name}.git`;
   const url = (
     await question('Repository url', repository.url || defaultInputUrl)
   ).trim();
 
   if (url) {
     repository.type = 'git';
-    repository.url = `git+${url}`;
+    repository.url = `${url}`;
 
     bugs = typeof bugs === 'object' ? bugs : {};
     if (author.email) {
