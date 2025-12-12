@@ -7,18 +7,18 @@ import { confirm } from '../prompts/confirm.prompt';
 export async function readPackage(
   currentFolder: string,
 ): Promise<IPackage | undefined> {
-  const packageJsonPath = path.resolve(currentFolder, 'package.json');
-
-  if (!existsSync(packageJsonPath)) {
-    return;
-  }
-
   try {
+    const packageJsonPath = path.resolve(currentFolder, 'package.json');
+
+    if (!existsSync(packageJsonPath)) {
+      return;
+    }
+
     const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
 
     if (packageJson) {
       const isUpdate = await confirm(
-        'File package.json found. Can update?',
+        'Found package.json file. Update project?',
         true,
       );
       if (isUpdate) {

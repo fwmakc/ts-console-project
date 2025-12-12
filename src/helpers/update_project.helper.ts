@@ -8,7 +8,7 @@ export async function updateProject(
   targetFolder: string,
 ): Promise<void> {
   const templateFolder = path.join(sourceFolder, 'template');
-  const backupFolder = path.join(templateFolder, '.backup');
+  const backupFolder = path.join(targetFolder, '.backup');
 
   // Проверяем и создаем каталог бэкапа проекта
   await makeTargetFolder(backupFolder);
