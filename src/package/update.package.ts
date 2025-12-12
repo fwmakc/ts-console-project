@@ -5,6 +5,8 @@ import { error } from '../helpers/error.helper';
 import type { IPackage } from '../interfaces/package.interface';
 
 export function updatePackage(targetDir: string, fields: IPackage): void {
+  console.log('-- fields', fields);
+
   const packageJsonPath = path.join(targetDir, 'package.json');
 
   if (!existsSync(packageJsonPath)) {
@@ -38,6 +40,9 @@ export function updatePackage(targetDir: string, fields: IPackage): void {
       ...packageJson.dependencies,
       ...fields.dependencies,
     };
+
+  console.log('-- packageJson', packageJson);
+  process.exit();
 
   try {
     writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));

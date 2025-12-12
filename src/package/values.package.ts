@@ -13,6 +13,9 @@ export async function valuesPackage(packageJson?: IPackage): Promise<IPackage> {
     repository,
     bugs,
     homepage,
+    scripts,
+    devDependencies,
+    dependencies,
   } = packageJson || defaults;
 
   productName = (
@@ -76,6 +79,9 @@ export async function valuesPackage(packageJson?: IPackage): Promise<IPackage> {
     repository,
     bugs,
     homepage,
+    scripts,
+    devDependencies,
+    dependencies,
   };
 
   return packageValues;
